@@ -22,7 +22,7 @@ public class CategoriesRepository extends GenericDAO{
             try (Statement statement = getConnection().createStatement();
                  ResultSet resultSet = statement.executeQuery(sql)) {
                 while (resultSet.next()) {
-                    Categories categories = extractTodoFromResultSet(resultSet);
+                    Categories categories = extractCategoriesFromResultSet(resultSet);
                     categorie.add(categories);
                 }
             }
@@ -37,7 +37,7 @@ public class CategoriesRepository extends GenericDAO{
             statement.setInt(1,id);
             try (ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()){
-                    return Optional.of(extractTodoFromResultSet(resultSet));
+                    return Optional.of(extractCategoriesFromResultSet(resultSet));
                 }
             }
             return Optional.empty();
@@ -83,7 +83,7 @@ public class CategoriesRepository extends GenericDAO{
         }
     }
 
-    private Categories extractTodoFromResultSet(ResultSet resultSet) throws SQLException {
+    private Categories extractCategoriesFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
 
