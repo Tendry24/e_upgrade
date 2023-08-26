@@ -29,6 +29,21 @@ public class CategoriesRepository extends GenericDAO{
             return categorie;
     }
 
+    @Override
+    public Optional<Categories> findById(int id) throws SQLException {
+        String sql = "SELECT * FROM cat WHERE id = ?";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)){
+            statement.setInt(1,id);
+            try (ResultSet resultSet = statement.executeQuery()){
+                while (resultSet.next()){
+                    return Optional.of(extractTodoFromResultSet(resultSet));
+                }
+            }
+            return Optional.empty();
+        }
+    }
+
 
     @Override
     public void insert(Categories toInsert) throws SQLException {
@@ -41,10 +56,6 @@ public class CategoriesRepository extends GenericDAO{
         }
     }
 
-    @Override
-    public Optional<Categories> findById(int id) throws SQLException {
-        return Optional.empty();
-    }
 
     @Override
     public void delete(int id) throws SQLException {

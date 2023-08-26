@@ -27,6 +27,14 @@ public class CategoriesService {
         }
     }
 
+    public Optional<Categories> findCategoriesById(int id){
+        try{
+            return categorie.findById(id);
+        } catch (SQLException e){
+            throw new RuntimeException("Error");
+        }
+    }
+
     public Categories insert(Categories toInsert){
         try{
             this.categorie.insert(toInsert);

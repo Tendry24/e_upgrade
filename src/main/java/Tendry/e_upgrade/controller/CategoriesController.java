@@ -12,17 +12,21 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CategoriesController {
 
-    private CategoriesService service;
+        private CategoriesService service;
 
-    @GetMapping("/allcategories")
-    public List<Categories> getAllcat() {
-        return service.findAllCategories();
-    }
+        @GetMapping("/allcategories")
+        public List<Categories> getAllcat() {
+            return service.findAllCategories();
+        }
 
+        @GetMapping("/Categories/{id}")
+        public Optional<Categories> getById(@PathVariable int id){
+            return service.findCategoriesById(id);
+        }
 
-    @PostMapping("/addcategory")
-    public Categories addCategory(@RequestBody Categories category ) {
-        return service.insert(category);
-    }
+        @PostMapping("/addcategory")
+        public Categories addCategory(@RequestBody Categories category ) {
+            return service.insert(category);
+        }
 
 }
