@@ -57,6 +57,17 @@ public class CategoriesRepository extends GenericDAO{
     }
 
 
+    public void update(Categories updatedCategory) throws SQLException {
+        String sql = "UPDATE cat SET name = ? WHERE id = ?";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setString(1, updatedCategory.getName());
+            statement.setInt(2, updatedCategory.getId());
+            statement.executeUpdate();
+        }
+    }
+
+
     @Override
     public void delete(int id) throws SQLException {
 
