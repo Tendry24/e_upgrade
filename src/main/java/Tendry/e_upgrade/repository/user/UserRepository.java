@@ -38,7 +38,7 @@ public class UserRepository extends GenericDAO{
         try (Statement statement = getConnection().createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
-                User alluser = extractTodoFromResultSet(resultSet);
+                User alluser = extractUserFromResultSet(resultSet);
                 users.add(alluser);
             }
         }
@@ -52,7 +52,7 @@ public class UserRepository extends GenericDAO{
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    return Optional.of(extractTodoFromResultSet(resultSet));
+                    return Optional.of(extractUserFromResultSet(resultSet));
                 }
             }
             return Optional.empty();
@@ -90,7 +90,7 @@ public class UserRepository extends GenericDAO{
     }
 
 
-    private User extractTodoFromResultSet(ResultSet resultSet) throws SQLException {
+    private User extractUserFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
         String email = resultSet.getString("email");

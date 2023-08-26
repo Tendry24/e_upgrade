@@ -38,7 +38,7 @@ public class ProductRepository extends GenericDAO {
         try (Statement statement = getConnection().createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
-                Product newProduct = extractTodoFromResultSet(resultSet);
+                Product newProduct = extractProductFromResultSet(resultSet);
                 products.add(newProduct);
             }
         }
@@ -52,7 +52,7 @@ public class ProductRepository extends GenericDAO {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    return Optional.of(extractTodoFromResultSet(resultSet));
+                    return Optional.of(extractProductFromResultSet(resultSet));
                 }
             }
             return Optional.empty();
@@ -90,7 +90,7 @@ public class ProductRepository extends GenericDAO {
         }
     }
 
-    private Product extractTodoFromResultSet(ResultSet resultSet) throws SQLException {
+    private Product extractProductFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
         String description = resultSet.getString("description");
