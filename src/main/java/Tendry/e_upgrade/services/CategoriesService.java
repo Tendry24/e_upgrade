@@ -53,4 +53,13 @@ public class CategoriesService {
             throw new RuntimeException("Error updating category");
         }
     }
+
+    public Optional<Categories> delete(int toDelete){
+        try {
+            this.categorie.delete(toDelete);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }

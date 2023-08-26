@@ -43,4 +43,14 @@ public class CategoriesController {
             }
         }
 
+        @DeleteMapping("/deletecat/{id}")
+        public ResponseEntity<String> deleteCategoryById(@PathVariable int id , HttpStatus done , HttpStatus fail) {
+            Optional<Categories> deletedCategory = service.delete(id);
+
+            if (deletedCategory.isPresent()) {
+                return new ResponseEntity<>( done.OK);
+            } else {
+                return new ResponseEntity<>(fail.NOT_FOUND);
+            }
+        }
 }
