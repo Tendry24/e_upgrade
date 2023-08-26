@@ -19,4 +19,10 @@ public class CategoriesController {
         return service.findAllCategories();
     }
 
+
+    @PostMapping("/addcategory")
+    public Categories addCategory(@RequestBody Categories category ) {
+        return service.insert(category);
+    }
+
 }
