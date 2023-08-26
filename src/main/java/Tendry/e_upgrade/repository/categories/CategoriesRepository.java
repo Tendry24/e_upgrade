@@ -3,10 +3,7 @@ package Tendry.e_upgrade.repository.categories;
 import Tendry.e_upgrade.models.Categories;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,7 +32,13 @@ public class CategoriesRepository extends GenericDAO{
 
     @Override
     public void insert(Categories toInsert) throws SQLException {
+        String sql = "INSERT INTO cat(id,name) VALUES (?,?)";
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)){
+            statement.setInt(1,toInsert.getId());
+            statement.setString(2,toInsert.getName());
 
+            statement.executeUpdate();
+        }
     }
 
 
