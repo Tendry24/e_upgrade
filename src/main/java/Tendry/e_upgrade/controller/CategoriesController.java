@@ -12,26 +12,27 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/categories")
 public class CategoriesController {
 
         private CategoriesService service;
 
-        @GetMapping("/allcategories")
+        @GetMapping
         public List<Categories> getAllcat() {
             return service.findAllCategories();
         }
 
-        @GetMapping("/categories/{id}")
+        @GetMapping("/{id}")
         public Optional<Categories> getById(@PathVariable int id){
             return service.findCategoriesById(id);
         }
 
-        @PostMapping("/addcategory")
+        @PostMapping("/add")
         public Categories addCategory(@RequestBody Categories category ) {
             return service.insert(category);
         }
 
-        @PutMapping("/updatecategory/{id}")
+        @PutMapping("/update/{id}")
         public ResponseEntity<String> updateCategory(@PathVariable int id, @RequestBody Categories updatedCategory) {
             updatedCategory.setId(id);
             Categories updated = service.update(updatedCategory);
@@ -43,7 +44,7 @@ public class CategoriesController {
             }
         }
 
-        @DeleteMapping("/deleteCategorie/{id}")
+        @DeleteMapping("/delete/{id}")
         public ResponseEntity<String> deleteCategoryById(@PathVariable int id , HttpStatus done , HttpStatus fail) {
             Boolean deletedCategory = service.delete(id);
 

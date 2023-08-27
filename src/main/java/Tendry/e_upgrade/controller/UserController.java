@@ -12,26 +12,27 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/user")
 public class UserController {
     private UserService service;
 
-    @GetMapping("/allUsers")
+    @GetMapping
     public List<User> getAllUsers(){
         return service.findAllUser();
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/{id}")
     public Optional<User> findUserById(@PathVariable int id){
         return service.findUserById(id);
     }
 
-    @PostMapping("/addUser")
+    @PostMapping("/add")
     public User addUser(@RequestBody User user ) {
         return service.insert(user);
     }
 
 
-    @DeleteMapping("/deleteUser/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable int id , HttpStatus done , HttpStatus fail) {
         Boolean deletedUser = service.delete(id);
         if (deletedUser != null && deletedUser.booleanValue()) {
@@ -41,7 +42,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/updateUser/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateUser(@PathVariable int id, @RequestBody User updatedUser) {
         updatedUser.setId(id);
         User updated = service.update(updatedUser);

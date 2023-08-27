@@ -12,27 +12,28 @@ import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/products")
 public class ProductController {
 
     private ProductService service;
 
-    @GetMapping("/allProducts")
+    @GetMapping
     public List<Product> getAllProducts(){
             return service.findAllProducts();
         }
 
-    @GetMapping("/product/{id}")
+    @GetMapping("/{id}")
     public Optional<Product> findProductById(@PathVariable int id){
         return service.findProductById(id);
     }
 
-    @PostMapping("/addProduct")
+    @PostMapping("/add")
     public Product addProduct(@RequestBody Product product ) {
         return service.insert(product);
     }
 
 
-    @DeleteMapping("/deleteProduct/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteProductById(@PathVariable int id , HttpStatus done , HttpStatus fail) {
         Boolean deletedProduct = service.delete(id);
 
@@ -43,7 +44,7 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/updateProduct/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateProduct(@PathVariable int id, @RequestBody Product updatedProduct) {
         updatedProduct.setId(id);
         Product updated = service.update(updatedProduct);
