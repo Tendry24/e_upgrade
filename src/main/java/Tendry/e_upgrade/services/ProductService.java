@@ -29,6 +29,16 @@ public class ProductService {
         }
     }
 
+
+    public Optional<Product> findProductByName(String name){
+        try{
+            return product.findProductByName(name);
+        } catch (SQLException e){
+            throw new RuntimeException("Error");
+        }
+    }
+
+
     public Product insert(Product toInsert){
         try{
             this.product.insert(toInsert);

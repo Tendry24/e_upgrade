@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS e_upgrade;
+CREATE DATABASE e_upgrade;
 \c e_upgrade;
 
 CREATE TABLE "user" (
@@ -25,7 +25,7 @@ CREATE TABLE "product" (
 );
 
 
-CREATE TABLE order (
+CREATE TABLE "order" (
                        id SERIAL PRIMARY KEY,
                        user_id INT REFERENCES "user"(id),
                        order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -35,10 +35,10 @@ CREATE TABLE order (
 
 CREATE TABLE order_details (
                                id SERIAL PRIMARY KEY,
-                               order_id INT REFERENCES order(id),
+                               order_id INT REFERENCES "order"(id),
                                product_id INT REFERENCES product(id),
                                quantity INT,
-                               unit_price float DEFAULT 0q
+                               unit_price float DEFAULT 0
 );
 
 

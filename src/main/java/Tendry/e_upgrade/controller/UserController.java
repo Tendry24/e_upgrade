@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,11 @@ public class UserController {
     @GetMapping("/{id}")
     public Optional<User> findUserById(@PathVariable int id){
         return service.findUserById(id);
+    }
+
+    @GetMapping("/name/{name}")
+    public List<User> findUserByName(@PathVariable String name) throws SQLException {
+        return service.findUserByName(name);
     }
 
     @PostMapping("/add")
