@@ -34,9 +34,9 @@ public class OrderController {
 
     @DeleteMapping("/deleteOrder/{id}")
     public ResponseEntity<String> deleteOrderById(@PathVariable int id , HttpStatus done , HttpStatus fail) {
-        Optional<Order> deletedOrder = service.delete(id);
+        Boolean deletedOrder = service.delete(id);
 
-        if (deletedOrder.isPresent()) {
+        if (deletedOrder != null && deletedOrder.booleanValue()) {
             return new ResponseEntity<>( done.OK);
         } else {
             return new ResponseEntity<>(fail.NOT_FOUND);
