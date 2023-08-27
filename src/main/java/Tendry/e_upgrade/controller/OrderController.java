@@ -54,6 +54,4 @@ public class OrderController {
             return new ResponseEntity<>("Category with ID " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
-
-
 }
