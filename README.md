@@ -1,7 +1,7 @@
 # e_upgrade
 Just an POO project with Spring
 
-`![Nom de l'image](chemin/vers/l/image.gif)`
+![E-UPGRADE](E-UPGRADE.gif)
 ## Introduction
 e_upgrade is a web application built with Spring, JDBC, and PostgreSQL to cater to your tech needs.
 Whether you're looking to enhance your PC's performance or upgrade various computer components,
