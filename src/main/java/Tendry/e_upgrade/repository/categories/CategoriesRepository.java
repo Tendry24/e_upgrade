@@ -41,7 +41,6 @@ public class CategoriesRepository extends GenericDAO{
         }
     }
 
-
     @Override
     public Optional<Categories> findById(int id) throws SQLException {
         return Optional.empty();

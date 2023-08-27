@@ -26,4 +26,13 @@ public class CategoriesService {
             throw new RuntimeException("Error");
         }
     }
+
+    public Categories insert(Categories toInsert){
+        try{
+            this.categorie.insert(toInsert);
+            return toInsert;
+        } catch (SQLException e){
+            throw new RuntimeException("Error");
+        }
+    }
 }
