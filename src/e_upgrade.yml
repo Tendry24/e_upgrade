@@ -1,0 +1,107 @@
+openapi: 3.0.2
+
+info:
+  title: e_upgrade API Documentation
+  description: API documentation for e_upgrade application
+  version: '1.0'
+
+servers:
+  - url: http://localhost:8080
+    description: Local development server
+
+paths:
+  /categories:
+    get:
+      summary: Get all categories
+      operationId: getAllCategories
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Categories'
+    post:
+      summary: Add a new category
+      operationId: addCategory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categories'
+      responses:
+        '200':
+          description: Category added successfully
+
+  /categories/{id}:
+    get:
+      summary: Get category by ID
+      operationId: getCategoryById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the category
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categories'
+        '404':
+          description: Category not found
+
+    put:
+      summary: Update a category
+      operationId: updateCategory
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the category to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categories'
+      responses:
+        '200':
+          description: Category updated successfully
+        '404':
+          description: Category not found
+
+    delete:
+      summary: Delete a category
+      operationId: deleteCategoryById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the category to delete
+      responses:
+        '200':
+          description: Category deleted successfully
+        '404':
+          description: Category not found
+
+components:
+  schemas:
+    Categories:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+
