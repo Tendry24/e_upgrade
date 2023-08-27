@@ -70,7 +70,17 @@ public class CategoriesRepository extends GenericDAO{
 
     @Override
     public void delete(int id) throws SQLException {
+        String sql = "DELETE FROM cat WHERE id = ?";
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1, id);
+            int rowsAffected = statement.executeUpdate();
 
+            if (rowsAffected > 0) {
+                System.out.println( id + " has been deleted.");
+            } else {
+                System.out.println(  id + "not found.");
+            }
+        }    
     }
 
     private Categories extractTodoFromResultSet(ResultSet resultSet) throws SQLException {
