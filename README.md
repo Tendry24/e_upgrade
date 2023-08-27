@@ -22,7 +22,7 @@ e_upgrade offers a wide range of materials to choose from.
 
 ### Running the Application
 1. Clone this repository to your local machine.
-   > git clone url...
+   > git clone https://github.com/Tendry24/e_upgrade.git
 3. Open the project in IntelliJ IDEA.
 4. Set up your PostgreSQL database configuration in `src/main/resources/application.properties`.
 5. In IntelliJ IDEA, right-click on the main application class (`EUpgradeApplication`) and select "Run".
