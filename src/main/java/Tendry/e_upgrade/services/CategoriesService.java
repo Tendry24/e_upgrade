@@ -35,6 +35,14 @@ public class CategoriesService {
         }
     }
 
+    public List<Categories> findCategorieByName(String name){
+        try {
+            return categorie.findCategorieByName(name);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Categories insert(Categories toInsert){
         try{
             this.categorie.insert(toInsert);

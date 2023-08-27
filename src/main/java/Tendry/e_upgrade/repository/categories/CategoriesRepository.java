@@ -1,6 +1,7 @@
 package Tendry.e_upgrade.repository.categories;
 
 import Tendry.e_upgrade.models.Categories;
+import Tendry.e_upgrade.models.User;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -17,7 +18,7 @@ public class CategoriesRepository extends GenericDAO{
     @Override
     public List<Categories> findAll() throws SQLException {
             List<Categories> categorie = new ArrayList<>();
-            String sql = "SELECT * FROM cat";
+            String sql = "SELECT * FROM categories";
 
             try (Statement statement = getConnection().createStatement();
                  ResultSet resultSet = statement.executeQuery(sql)) {
@@ -31,7 +32,7 @@ public class CategoriesRepository extends GenericDAO{
 
     @Override
     public Optional<Categories> findById(int id) throws SQLException {
-        String sql = "SELECT * FROM cat WHERE id = ?";
+        String sql = "SELECT * FROM categories WHERE id = ?";
 
         try (PreparedStatement statement = getConnection().prepareStatement(sql)){
             statement.setInt(1,id);
@@ -44,12 +45,27 @@ public class CategoriesRepository extends GenericDAO{
         }
     }
 
+    public List<Categories> findCategorieByName(String name) throws  SQLException {
+        List<Categories> categories = new ArrayList<>();
+        String sql = "SELECT * FROM categories WHERE name ILIKE ?;";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setString(1, "%"+name+"%");
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Categories categorie = extractCategoriesFromResultSet(resultSet);
+                    categories.add(categorie);
+                }
+            }
+            return categories;
+        }
+    }
+
 
     @Override
     public void insert(Categories toInsert) throws SQLException {
-        String sql = "INSERT INTO cat(name) VALUES (?)";
+        String sql = "INSERT INTO categories(name) VALUES (?)";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)){
-            //statement.setInt(1,toInsert.getId());
             statement.setString(1,toInsert.getName());
 
             statement.executeUpdate();
@@ -58,7 +74,7 @@ public class CategoriesRepository extends GenericDAO{
 
 
     public void update(Categories updatedCategory) throws SQLException {
-        String sql = "UPDATE cat SET name = ? WHERE id = ?";
+        String sql = "UPDATE categories SET name = ? WHERE id = ?";
 
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setString(1, updatedCategory.getName());
@@ -70,7 +86,7 @@ public class CategoriesRepository extends GenericDAO{
 
     @Override
     public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM cat WHERE id = ?";
+        String sql = "DELETE FROM categories WHERE id = ?";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setInt(1, id);
             int rowsAffected = statement.executeUpdate();

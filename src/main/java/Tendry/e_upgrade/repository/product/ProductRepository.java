@@ -2,6 +2,7 @@ package Tendry.e_upgrade.repository.product;
 
 
 import Tendry.e_upgrade.models.Product;
+import Tendry.e_upgrade.models.User;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -90,16 +91,18 @@ public class ProductRepository extends GenericDAO {
         }
     }
 
-    public Optional<Product> findProductByName(String name) throws SQLException {
+    public List<Product> findProductByName(String name) throws SQLException {
+        List<Product> products = new ArrayList<>();
         String sql = "SELECT * FROM \"product\" WHERE name ILIKE ?";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setString(1, "%"+name+"%");
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    return Optional.of(extractProductFromResultSet(resultSet));
+                    Product prod = extractProductFromResultSet(resultSet);
+                    products.add(prod);
                 }
             }
-            return Optional.empty();
+            return products;
         }
     }
 
