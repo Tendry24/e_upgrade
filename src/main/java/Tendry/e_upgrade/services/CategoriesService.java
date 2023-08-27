@@ -43,4 +43,14 @@ public class CategoriesService {
             throw new RuntimeException("Error");
         }
     }
+
+
+    public Categories update(Categories updatedCategory) {
+        try {
+            this.categorie.update(updatedCategory);
+            return updatedCategory;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error updating category");
+        }
+    }
 }
