@@ -7,32 +7,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.StyledEditorKit;
+
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
+@RequestMapping("/order_details")
 public class Order_detailsController {
 
     private Order_detailsService service;
 
-    @GetMapping("/allOrderDetails")
+    @GetMapping
     public List<Order_details> getAllOrder_details() {
         return service.findAllOrder_details();
     }
 
-    @GetMapping("/order_details/{id}")
+    @GetMapping("/{id}")
     public Optional<Order_details> getOrder_detailsById(@PathVariable int id) {
         return service.findOrder_detailsById(id);
     }
 
-    @PostMapping("/addOrder_details")
+    @PostMapping("/add")
     public Order_details addOrder_details(@RequestBody Order_details order_details) {
         return service.insert(order_details);
     }
 
-    @DeleteMapping("/deleteOrder_details/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteOrder_detailsById(@PathVariable int id, HttpStatus done, HttpStatus fail) {
         Boolean deletedOrder_details = service.delete(id);
 
@@ -43,7 +44,7 @@ public class Order_detailsController {
         }
     }
 
-    @PutMapping("/updateOrder_details/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateOrder(@PathVariable int id, @RequestBody Order_details updatedOrder_details) {
         updatedOrder_details.setId(id);
         Order_details updated = service.update(updatedOrder_details);
