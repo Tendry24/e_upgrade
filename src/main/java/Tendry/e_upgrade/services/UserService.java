@@ -41,7 +41,7 @@ public class UserService {
     }
 
 
-    public Optional<User> delete(int toDelete){
+    public Boolean delete(int toDelete){
         try {
             this.user.delete(toDelete);
         } catch (SQLException e) {

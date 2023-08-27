@@ -42,7 +42,7 @@ public class OrderService {
     }
 
 
-    public Optional<Order> delete(int toDelete){
+    public Boolean delete(int toDelete){
         try {
             this.order.delete(toDelete);
         } catch (SQLException e) {

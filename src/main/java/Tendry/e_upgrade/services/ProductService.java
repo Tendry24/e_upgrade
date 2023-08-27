@@ -39,7 +39,7 @@ public class ProductService {
     }
 
 
-    public Optional<Product> delete(int toDelete){
+    public Boolean delete(int toDelete){
         try {
             this.product.delete(toDelete);
         } catch (SQLException e) {
