@@ -21,7 +21,7 @@ public class CategoriesController {
             return service.findAllCategories();
         }
 
-        @GetMapping("/Categories/{id}")
+        @GetMapping("/categories/{id}")
         public Optional<Categories> getById(@PathVariable int id){
             return service.findCategoriesById(id);
         }
@@ -43,11 +43,11 @@ public class CategoriesController {
             }
         }
 
-        @DeleteMapping("/deletecat/{id}")
+        @DeleteMapping("/deleteCategorie/{id}")
         public ResponseEntity<String> deleteCategoryById(@PathVariable int id , HttpStatus done , HttpStatus fail) {
-            Optional<Categories> deletedCategory = service.delete(id);
+            Boolean deletedCategory = service.delete(id);
 
-            if (deletedCategory.isPresent()) {
+            if (deletedCategory != null && deletedCategory.booleanValue()) {
                 return new ResponseEntity<>( done.OK);
             } else {
                 return new ResponseEntity<>(fail.NOT_FOUND);

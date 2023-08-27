@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.StyledEditorKit;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,9 +34,9 @@ public class Order_detailsController {
 
     @DeleteMapping("/deleteOrder_details/{id}")
     public ResponseEntity<String> deleteOrder_detailsById(@PathVariable int id, HttpStatus done, HttpStatus fail) {
-        Optional<Order_details> deletedOrder_details = service.delete(id);
+        Boolean deletedOrder_details = service.delete(id);
 
-        if (deletedOrder_details.isPresent()) {
+        if (deletedOrder_details != null && deletedOrder_details.booleanValue()) {
             return new ResponseEntity<>(done.OK);
         } else {
             return new ResponseEntity<>(fail.NOT_FOUND);
