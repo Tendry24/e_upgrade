@@ -24,5 +24,5 @@ public abstract class GenericDAO<C> {
     public abstract List<User> findAllUser() throws SQLException;
 
     public abstract Optional<User> findUserById(int id) throws SQLException;
-    public abstract void delete(int id) throws SQLException;
+    public abstract boolean delete(int id) throws SQLException;
 }

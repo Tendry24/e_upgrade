@@ -49,13 +49,13 @@ public class UserService {
     }
 
 
-    public Boolean delete(int toDelete){
+    public boolean delete(int id) {
         try {
-            this.user.delete(toDelete);
+            user.delete(id);
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     public User update(User updatedUser) {

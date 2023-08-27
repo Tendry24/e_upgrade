@@ -3,10 +3,13 @@ package Tendry.e_upgrade.controller;
 import Tendry.e_upgrade.models.Order;
 import Tendry.e_upgrade.services.OrderService;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,25 +30,33 @@ public class OrderController {
         return service.findOrderById(id);
     }
 
+    @GetMapping("/byDateRange")
+    public List<Order> getOrdersByDateRange(
+            @RequestParam @DateTimeFormat(pattern = "yyyy-mm-dd") LocalDate startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-mm-dd") LocalDate endDate) {
+        LocalDateTime startDateTime = startDate.atStartOfDay();
+        LocalDateTime endDateTime = endDate.atTime(23, 59, 59);
+        return service.findOrdersByDateRange(startDateTime, endDateTime);
+    }
+
     @PostMapping("/add")
     public Order addOrder(@RequestBody Order orders ) {
         return service.insert(orders);
     }
 
-
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteOrderById(@PathVariable int id , HttpStatus done , HttpStatus fail) {
-        Boolean deletedOrder = service.delete(id);
+    public ResponseEntity<String> deleteOrderById(@PathVariable int id) {
+        boolean deleted = service.delete(id);
 
-        if (deletedOrder != null && deletedOrder.booleanValue()) {
-            return new ResponseEntity<>( done.OK);
+        if (deleted) {
+            return new ResponseEntity<>("Order with ID " + id + " deleted.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(fail.NOT_FOUND);
+            return new ResponseEntity<>("Order with ID " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> updateOrder(@PathVariable int id, @RequestBody Order updatedOrder) {
+        public ResponseEntity<String> updateOrder(@PathVariable int id, @RequestBody Order updatedOrder) {
         updatedOrder.setId(id);
         Order updated = service.update(updatedOrder);
 

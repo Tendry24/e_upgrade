@@ -49,13 +49,13 @@ public class ProductService {
     }
 
 
-    public Boolean delete(int toDelete){
+    public boolean delete(int id) {
         try {
-            this.product.delete(toDelete);
+            product.delete(id);
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     public Product update(Product updatedProduct) {

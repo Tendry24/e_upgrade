@@ -5,6 +5,7 @@ import Tendry.e_upgrade.models.Order;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,8 +60,27 @@ public class OrderRepository extends GenericDAO {
         }
     }
 
+    public List<Order> findOrdersByDateRange(LocalDateTime startDate, LocalDateTime endDate) throws SQLException {
+        List<Order> orders = new ArrayList<>();
+        String sql = "SELECT * FROM \"order\" WHERE order_date BETWEEN ? AND ?";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setTimestamp(1, Timestamp.valueOf(startDate));
+            statement.setTimestamp(2, Timestamp.valueOf(endDate));
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Order newOrder = extractOrderFromResultSet(resultSet);
+                    orders.add(newOrder);
+                }
+            }
+        }
+        return orders;
+    }
+
+
     @Override
-    public void delete(int id) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         String sql = "DELETE FROM \"order\" WHERE id = ?";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -72,6 +92,7 @@ public class OrderRepository extends GenericDAO {
                 System.out.println(  id + "not found.");
             }
         }
+        return false;
     }
 
     public void update(Order updatedOrder) throws SQLException {

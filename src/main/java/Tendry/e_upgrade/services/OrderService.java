@@ -5,6 +5,8 @@ import Tendry.e_upgrade.repository.oders.OrderRepository;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +34,16 @@ public class OrderService {
         }
     }
 
+    public List<Order> findOrdersByDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+        try {
+            return order.findOrdersByDateRange(startDate, endDate);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error fetching orders within date range", e);
+        }
+    }
+
+
+
     public Order insert(Order toInsert){
         try{
             this.order.insert(toInsert);
@@ -42,13 +54,13 @@ public class OrderService {
     }
 
 
-    public Boolean delete(int toDelete){
+    public boolean delete(int id) {
         try {
-            this.order.delete(toDelete);
+             order.delete(id);
+             return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     public Order update(Order updatedOrder) {

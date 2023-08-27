@@ -61,7 +61,7 @@ public class ProductRepository extends GenericDAO {
     }
 
     @Override
-    public void delete(int id) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         String sql = "DELETE FROM product WHERE id = ?";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -73,6 +73,7 @@ public class ProductRepository extends GenericDAO {
                 System.out.println(  id + "not found.");
             }
         }
+        return false;
     }
 
 
