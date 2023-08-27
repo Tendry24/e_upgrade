@@ -18,7 +18,15 @@ public class OrderRepository extends GenericDAO {
 
     @Override
     public void insert(Order toInsert) throws SQLException {
+        String sql = "INSERT INTO \"order\" (user_id,order_date,total_bills) VALUES (?,?,?)";
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            /*statement.setInt(1, toInsert.getId());*/
+            statement.setInt(2,toInsert.getUser_id());
+            statement.setTimestamp(3,toInsert.getOrder_date());
+            statement.setDouble(4,toInsert.getTotal_bills());
 
+            statement.executeUpdate();
+        }
     }
 
     @Override
@@ -38,14 +46,46 @@ public class OrderRepository extends GenericDAO {
 
     @Override
     public Optional<Order> findOrderById(int id) throws SQLException {
-        return Optional.empty();
+        String sql = "SELECT * FROM \"order\" WHERE id = ?";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    return Optional.of(extractTodoFromResultSet(resultSet));
+                }
+            }
+            return Optional.empty();
+        }
     }
 
     @Override
     public void delete(int id) throws SQLException {
+        String sql = "DELETE FROM \"order\" WHERE id = ?";
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1, id);
+            int rowsAffected = statement.executeUpdate();
 
+            if (rowsAffected > 0) {
+                System.out.println( id + " has been deleted.");
+            } else {
+                System.out.println(  id + "not found.");
+            }
+        }
     }
 
+    public void update(Order updatedOrder) throws SQLException {
+        String sql = "UPDATE \"order\" SET user_id =?,order_date=?,total_bills=? WHERE id = ?";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1, updatedOrder.getId());
+            statement.setInt(2, updatedOrder.getUser_id());
+            statement.setTimestamp(3,updatedOrder.getOrder_date());
+            statement.setDouble(4,updatedOrder.getTotal_bills());
+
+            statement.executeUpdate();
+        }
+    }
     private Order extractTodoFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int user_id = resultSet.getInt("user_id");
