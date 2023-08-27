@@ -80,7 +80,7 @@ public class CategoriesRepository extends GenericDAO{
             } else {
                 System.out.println(  id + "not found.");
             }
-        }    
+        }
     }
 
     private Categories extractTodoFromResultSet(ResultSet resultSet) throws SQLException {
