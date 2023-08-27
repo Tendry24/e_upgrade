@@ -54,7 +54,7 @@ public class CategoriesService {
         }
     }
 
-    public Optional<Categories> delete(int toDelete){
+    public Boolean delete(int toDelete){
         try {
             this.categorie.delete(toDelete);
         } catch (SQLException e) {

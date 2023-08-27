@@ -39,7 +39,7 @@ public class Order_detailsService {
         }
     }
 
-    public Optional<Order_details> delete(int toDelete) {
+    public Boolean delete(int toDelete) {
         try {
             this.order_details.delete(toDelete);
         } catch (SQLException e) {
