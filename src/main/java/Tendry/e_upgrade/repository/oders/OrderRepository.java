@@ -37,7 +37,7 @@ public class OrderRepository extends GenericDAO {
         try (Statement statement = getConnection().createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
-                Order newOrder = extractTodoFromResultSet(resultSet);
+                Order newOrder = extractOrderFromResultSet(resultSet);
                 order.add(newOrder);
             }
         }
@@ -52,7 +52,7 @@ public class OrderRepository extends GenericDAO {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    return Optional.of(extractTodoFromResultSet(resultSet));
+                    return Optional.of(extractOrderFromResultSet(resultSet));
                 }
             }
             return Optional.empty();
@@ -86,7 +86,7 @@ public class OrderRepository extends GenericDAO {
             statement.executeUpdate();
         }
     }
-    private Order extractTodoFromResultSet(ResultSet resultSet) throws SQLException {
+    private Order extractOrderFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int user_id = resultSet.getInt("user_id");
         Timestamp order_date = resultSet.getTimestamp("order_date");

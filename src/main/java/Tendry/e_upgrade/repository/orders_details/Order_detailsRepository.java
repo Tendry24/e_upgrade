@@ -36,7 +36,7 @@ public class Order_detailsRepository extends GenericDAO{
         try (Statement statement = getConnection().createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
-                Order_details details = extractTodoFromResultSet(resultSet);
+                Order_details details = extractOrder_detailsFromResultSet(resultSet);
                 allDetails.add(details);
             }
         }
@@ -51,7 +51,7 @@ public class Order_detailsRepository extends GenericDAO{
             statement.setInt(1,id);
             try (ResultSet resultSet = statement.executeQuery()){
                 while (resultSet.next()){
-                    return Optional.of(extractTodoFromResultSet(resultSet));
+                    return Optional.of(extractOrder_detailsFromResultSet(resultSet));
                 }
             }
             return Optional.empty();
@@ -88,7 +88,7 @@ public class Order_detailsRepository extends GenericDAO{
     }
 
 
-    private Order_details extractTodoFromResultSet(ResultSet resultSet) throws SQLException {
+    private Order_details extractOrder_detailsFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         int order_id = resultSet.getInt("order_id");
         int product_id = resultSet.getInt("product_id");
