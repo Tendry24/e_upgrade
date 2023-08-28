@@ -29,7 +29,8 @@ public class CategoriesController {
 
         @PostMapping("/add")
         public Categories addCategory(@RequestBody Categories category ) {
-            return service.insert(category);
+            Categories addedCategory =  service.insert(category);
+            return new ResponseEntity<>(addedCategory, HttpStatus.CREATED).getBody();
         }
 
         @PutMapping("/update/{id}")
