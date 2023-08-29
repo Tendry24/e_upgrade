@@ -59,6 +59,23 @@ public class UserRepository extends GenericDAO{
         }
     }
 
+    public List<User> findUserbyName(String name) throws  SQLException {
+        List<User> users = new ArrayList<>();
+        String sql = "SELECT * FROM \"user\" WHERE name ILIKE ?;";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setString(1, "%"+name+"%");
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    User alluser = extractUserFromResultSet(resultSet);
+                    users.add(alluser);
+                }
+            }
+            return users;
+        }
+
+    }
+
     @Override
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM \"user\" WHERE id = ?";
@@ -88,6 +105,7 @@ public class UserRepository extends GenericDAO{
             statement.executeUpdate();
         }
     }
+
 
 
     private User extractUserFromResultSet(ResultSet resultSet) throws SQLException {

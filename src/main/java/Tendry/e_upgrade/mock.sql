@@ -1,4 +1,4 @@
-INSERT INTO "user" (name, email, password, address)
+INSERT INTO "user" (name, email, password, adress)
 VALUES
     ('John Doe', 'john@example.com', 'pass123', '123 Main St'),
     ('Jane Smith', 'jane@example.com', 'secure456', '456 Elm St'),
@@ -42,7 +42,7 @@ VALUES
     ('Router R500', 'Advanced router for high-speed networking.', 4, 129.99, 30),
     ('Microsoft Office Suite', 'Productivity software suite for business and personal use.', 5, 149.99, 200),
     ('Color Laser Printer P900', 'Fast and efficient color laser printer.', 6, 349.99, 15),
-    ('USB-C Hub', 'Expand your computer\'s connectivity with this hub.', 7, 49.99, 50),
+    ('USB-C Hub', 'Expand your computers connectivity with this hub.', 7, 49.99, 50),
     ('24-inch Monitor', 'Full HD monitor for a great viewing experience.', 8, 179.99, 40),
     ('1TB SSD', 'High-speed 1TB solid-state drive for storage upgrades.', 9, 129.99, 60),
     ('Gaming Keyboard K100', 'Mechanical gaming keyboard with customizable RGB lighting.', 10, 99.99, 25),

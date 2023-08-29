@@ -1,5 +1,6 @@
 package Tendry.e_upgrade.controller;
 
+import Tendry.e_upgrade.models.Categories;
 import Tendry.e_upgrade.models.Product;
 import Tendry.e_upgrade.services.ProductService;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,12 @@ public class ProductController {
     @GetMapping("/{id}")
     public Optional<Product> findProductById(@PathVariable int id){
         return service.findProductById(id);
+    }
+
+
+    @GetMapping("/name/{name}")
+    public Optional<Product> findProductByName(@PathVariable String name){
+        return service.findProductByName(name);
     }
 
     @PostMapping("/add")

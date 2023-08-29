@@ -47,7 +47,7 @@ public class ProductRepository extends GenericDAO {
 
     @Override
     public Optional<Product> findProductById(int id) throws SQLException {
-        String sql = "SELECT * FROM product WHERE id = ?";
+        String sql = "SELECT * FROM \"product\" WHERE id = ?";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -87,6 +87,19 @@ public class ProductRepository extends GenericDAO {
             statement.setInt(6,updatedProduct.getCategories_id());
 
             statement.executeUpdate();
+        }
+    }
+
+    public Optional<Product> findProductByName(String name) throws SQLException {
+        String sql = "SELECT * FROM \"product\" WHERE name ILIKE ?";
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setString(1, "%"+name+"%");
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    return Optional.of(extractProductFromResultSet(resultSet));
+                }
+            }
+            return Optional.empty();
         }
     }
 

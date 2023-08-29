@@ -31,6 +31,14 @@ public class UserService {
         }
     }
 
+    public List<User> findUserByName(String name) throws SQLException {
+        try {
+            return user.findUserbyName(name);
+        }catch (SQLException e){
+            throw e;
+        }
+    }
+
     public User insert(User toInsert){
         try{
             this.user.insert(toInsert);
