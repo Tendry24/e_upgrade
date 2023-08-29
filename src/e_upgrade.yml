@@ -12,6 +12,8 @@ servers:
 paths:
   /categories:
     get:
+      tags:
+       - Categories
       summary: Get all categories
       operationId: getAllCategories
       responses:
@@ -24,6 +26,8 @@ paths:
                 items:
                   $ref: '#/components/schemas/Categories'
     post:
+      tags:
+        - Categories
       summary: Add a new category
       operationId: addCategory
       requestBody:
@@ -38,6 +42,8 @@ paths:
 
   /categories/{id}:
     get:
+      tags:
+        - Categories
       summary: Get category by ID
       operationId: getCategoryById
       parameters:
@@ -58,6 +64,8 @@ paths:
           description: Category not found
 
     put:
+      tags:
+        - Categories
       summary: Update a category
       operationId: updateCategory
       parameters:
@@ -80,6 +88,8 @@ paths:
           description: Category not found
 
     delete:
+      tags:
+        - Categories
       summary: Delete a category
       operationId: deleteCategoryById
       parameters:
@@ -104,4 +114,5 @@ components:
           type: integer
         name:
           type: string
+      example:
 
