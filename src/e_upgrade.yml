@@ -2,7 +2,7 @@ openapi: 3.0.2
 
 info:
   title: e_upgrade API Documentation
-  description: API documentation for e_upgrade application
+  description: API documentation for e_upgrade
   version: '1.0'
 
 servers:
@@ -13,7 +13,7 @@ paths:
   /categories:
     get:
       tags:
-       - Categories
+        - Categories
       summary: Get all categories
       operationId: getAllCategories
       responses:
@@ -25,6 +25,14 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Categories'
+          examples:
+            ExampleCategories:
+              value:
+                - id: 1
+                  name: Electronics
+                - id: 2
+                  name: Clothing
+
     post:
       tags:
         - Categories
@@ -60,6 +68,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Categories'
+          examples:
+            ExampleCategory:
+              value:
+                id: 1
+                name: Electronics
         '404':
           description: Category not found
 
@@ -105,6 +118,102 @@ paths:
         '404':
           description: Category not found
 
+  /order_details:
+    get:
+      tags:
+        - Order_details
+      summary: Get all order details
+      operationId: getAllOrder_details
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order_details'
+
+    post:
+      tags:
+        - Order_details
+      summary: Add a new order detail
+      operationId: addOrder_details
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order_details'
+      responses:
+        '200':
+          description: Order detail added successfully
+
+  /order_details/{id}:
+    get:
+      tags:
+        - Order_details
+      summary: Get order detail by ID
+      operationId: getOrder_detailsById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the order detail
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order_details'
+        '404':
+          description: Order detail not found
+
+    delete:
+      tags:
+        - Order_details
+      summary: Delete an order detail
+      operationId: deleteOrder_detailsById
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the order detail to delete
+      responses:
+        '200':
+          description: Order detail deleted successfully
+        '404':
+          description: Order detail not found
+
+    put:
+      tags:
+        - Order_details
+      summary: Update an order detail
+      operationId: updateOrder_details
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID of the order detail to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order_details'
+      responses:
+        '200':
+          description: Order detail updated successfully
+        '404':
+          description: Order detail not found
+
 components:
   schemas:
     Categories:
@@ -115,4 +224,25 @@ components:
         name:
           type: string
       example:
+        id: 1
+        name: Electronics
 
+    Order_details:
+      type: object
+      properties:
+        id:
+          type: integer
+        order_id:
+          type: integer
+        product_id:
+          type: integer
+        quantity:
+          type: integer
+        unit_price:
+          type: number
+      example:
+        id: 1
+        order_id: 123
+        product_id: 456
+        quantity: 3
+        unit_price: 29.99
