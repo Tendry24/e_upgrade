@@ -62,12 +62,13 @@ public class CategoriesService {
         }
     }
 
-    public Boolean delete(int toDelete){
+
+    public boolean delete(int id) {
         try {
-            this.categorie.delete(toDelete);
+            categorie.delete(id);
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 }

@@ -39,13 +39,14 @@ public class Order_detailsService {
         }
     }
 
-    public Boolean delete(int toDelete) {
+
+    public boolean delete(int id) {
         try {
-            this.order_details.delete(toDelete);
+            order_details.delete(id);
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
     }
 
     public Order_details update(Order_details updatedCategory) {

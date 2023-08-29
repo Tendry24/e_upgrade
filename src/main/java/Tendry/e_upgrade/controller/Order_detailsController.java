@@ -34,13 +34,13 @@ public class Order_detailsController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteOrder_detailsById(@PathVariable int id, HttpStatus done, HttpStatus fail) {
-        Boolean deletedOrder_details = service.delete(id);
+    public ResponseEntity<String> deleteOrder_detailsById(@PathVariable int id) {
+        boolean deleted = service.delete(id);
 
-        if (deletedOrder_details != null && deletedOrder_details.booleanValue()) {
-            return new ResponseEntity<>(done.OK);
+        if (deleted) {
+            return new ResponseEntity<>("Order_details with ID " + id + " deleted.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(fail.NOT_FOUND);
+            return new ResponseEntity<>("Order_details with ID " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -50,9 +50,9 @@ public class Order_detailsController {
         Order_details updated = service.update(updatedOrder_details);
 
         if (updated != null) {
-            return new ResponseEntity<>("Category with ID " + id + " has been updated.", HttpStatus.OK);
+            return new ResponseEntity<>("Category with id " + id + "updated.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("Category with ID " + id + " not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Category with id " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 }

@@ -40,13 +40,12 @@ public class ProductController {
 
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteProductById(@PathVariable int id , HttpStatus done , HttpStatus fail) {
-        Boolean deletedProduct = service.delete(id);
-
-        if (deletedProduct != null && deletedProduct.booleanValue()) {
-            return new ResponseEntity<>( done.OK);
+    public ResponseEntity<String> deleteProductById(@PathVariable int id) {
+        boolean deleted = service.delete(id);
+        if (deleted) {
+            return new ResponseEntity<>("product with id " + id + " deleted.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(fail.NOT_FOUND);
+            return new ResponseEntity<>("product with id " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 

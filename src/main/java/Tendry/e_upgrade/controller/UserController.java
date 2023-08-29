@@ -37,14 +37,13 @@ public class UserController {
         return service.insert(user);
     }
 
-
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable int id , HttpStatus done , HttpStatus fail) {
-        Boolean deletedUser = service.delete(id);
-        if (deletedUser != null && deletedUser.booleanValue()) {
-            return new ResponseEntity<>( done.OK);
+    public ResponseEntity<String> deleteUserById(@PathVariable int id) {
+        boolean deleted = service.delete(id);
+        if (deleted) {
+            return new ResponseEntity<>("user with id " + id + " deleted.", HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(fail.NOT_FOUND);
+            return new ResponseEntity<>("user with id " + id + " not found.", HttpStatus.NOT_FOUND);
         }
     }
 

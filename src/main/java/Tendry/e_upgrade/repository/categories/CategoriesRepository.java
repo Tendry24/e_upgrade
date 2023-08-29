@@ -85,7 +85,7 @@ public class CategoriesRepository extends GenericDAO{
 
 
     @Override
-    public void delete(int id) throws SQLException {
+    public boolean delete(int id) throws SQLException {
         String sql = "DELETE FROM categories WHERE id = ?";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setInt(1, id);
@@ -97,6 +97,7 @@ public class CategoriesRepository extends GenericDAO{
                 System.out.println(  id + "not found.");
             }
         }
+        return false;
     }
 
     private Categories extractCategoriesFromResultSet(ResultSet resultSet) throws SQLException {

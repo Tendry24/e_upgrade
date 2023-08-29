@@ -24,5 +24,5 @@ public abstract class GenericDAO<C> {
 
     public abstract Optional<Product> findProductById(int id) throws SQLException;
 
-    public abstract void delete(int id) throws SQLException;
+    public abstract boolean delete(int id) throws SQLException;
 }
