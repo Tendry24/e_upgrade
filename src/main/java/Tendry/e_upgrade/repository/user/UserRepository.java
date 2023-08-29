@@ -73,7 +73,6 @@ public class UserRepository extends GenericDAO{
             }
             return users;
         }
-
     }
 
     @Override

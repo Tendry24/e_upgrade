@@ -30,7 +30,7 @@ public class ProductService {
     }
 
 
-    public Optional<Product> findProductByName(String name){
+    public List<Product> findProductByName(String name){
         try{
             return product.findProductByName(name);
         } catch (SQLException e){

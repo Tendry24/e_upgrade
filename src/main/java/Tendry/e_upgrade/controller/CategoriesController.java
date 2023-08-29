@@ -27,6 +27,11 @@ public class CategoriesController {
             return service.findCategoriesById(id);
         }
 
+        @GetMapping("/name/{name}")
+        public List<Categories> getByname(@PathVariable String name){
+            return service.findCategorieByName(name);
+        }
+
         @PostMapping("/add")
         public Categories addCategory(@RequestBody Categories category ) {
             Categories addedCategory =  service.insert(category);
