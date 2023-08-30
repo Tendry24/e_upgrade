@@ -1,7 +1,6 @@
 package Tendry.e_upgrade.repository.categories;
 
 import Tendry.e_upgrade.models.Categories;
-import Tendry.e_upgrade.models.User;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
